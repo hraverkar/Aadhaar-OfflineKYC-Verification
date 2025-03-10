@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Aadhaar_OfflineKYC_Verification</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Harshal Raverkar</Authors>
+    <Description>This NuGet package enables secure and efficient Offline Aadhaar KYC Verification for Indian citizens. It allows developers to extract and validate Aadhaar KYC data from the ZIP file provided by UIDAI's offline Aadhaar e-KYC service. The package handles ZIP decryption using the share code, extracts XML data, verifies the digital signature, and parses relevant user information like name, address, date of birth, and more.</Description>
+    <Title>Aadhaar-OfflineKYC-Verification</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Version>1.0.5</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
