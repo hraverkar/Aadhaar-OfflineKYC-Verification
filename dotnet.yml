@@ -1,0 +1,54 @@
+name: Aadhaar KYC NuGet Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]  # Triggers on versioned tags like v1.0.5
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed for Git tag extraction
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Extract Version from Git Tag
+        id: get_version
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 | sed 's/^v//')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+        continue-on-error: true  # In case no tag is found
+
+      - name: Ensure Version Exists
+        run: |
+          if [ -z "${{ env.VERSION }}" ]; then
+            echo "No version tag found! Using default version 1.0.5."
+            echo "VERSION=1.0.5" >> $GITHUB_ENV
+          fi
+
+      - name: Update Version in .csproj
+        run: sed -i 's|<Version>.*</Version>|<Version>${{ env.VERSION }}</Version>|' Aadhaar-OfflineKYC-Verification.csproj
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build Release
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack NuGet Package
+        run: dotnet pack --configuration Release --output ./nupkgs
+
+      - name: Find the NuGet Package
+        id: find_package
+        run: echo "PACKAGE_NAME=$(find ./nupkgs -name '*.nupkg' -print -quit)" >> $GITHUB_ENV
+
+      - name: Publish NuGet Package
+        run: dotnet nuget push $PACKAGE_NAME --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_PACKAGE_SECRET }} --skip-duplicate

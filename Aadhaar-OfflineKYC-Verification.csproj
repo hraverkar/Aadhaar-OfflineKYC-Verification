@@ -11,7 +11,8 @@
     <Title>Aadhaar-OfflineKYC-Verification</Title>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<Version>1.0.5</Version>
+  <VersionPrefix>1.0.5</VersionPrefix>
+  <Version></Version>
   </PropertyGroup>
 
   <ItemGroup>
