@@ -46,14 +46,9 @@ jobs:
       - name: Pack NuGet Package
         run: dotnet pack --configuration Release --output ./nupkgs
 
-  nuget-release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Find the NuGet Package
         id: find_package
         run: echo "PACKAGE_NAME=$(find ./nupkgs -name '*.nupkg' -print -quit)" >> $GITHUB_ENV
 
       - name: Publish NuGet Package
-        run: dotnet nuget push $PACKAGE_NAME --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_PACKAGE_SECRET }} --skip-duplicate
+        run: dotnet nuget push $PACKAGE_NAME --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_PACKAGE_SECRET }} --skip-duplicate 
