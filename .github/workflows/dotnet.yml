@@ -46,26 +46,11 @@ jobs:
       - name: Pack NuGet Package
         run: dotnet pack --configuration Release --output ./nupkgs
 
-      - name: Upload NuGet Package Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: nuget-package
-          path: ./nupkgs/*.nupkg
-
   nuget-release:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Download NuGet Package Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: nuget-package
-          path: ./nupkgs
-
       - name: Find the NuGet Package
         id: find_package
         run: echo "PACKAGE_NAME=$(find ./nupkgs -name '*.nupkg' -print -quit)" >> $GITHUB_ENV
