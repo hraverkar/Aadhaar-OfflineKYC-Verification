@@ -1,6 +1,8 @@
 ﻿# Aadhaar Offline KYC Verification
 [SourceCode](https://github.com/hraverkar/Aadhaar-OfflineKYC-Verification.git)
 
+[![Aadhaar KYC NuGet Deployment](https://github.com/hraverkar/Aadhaar-OfflineKYC-Verification/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hraverkar/Aadhaar-OfflineKYC-Verification/actions/workflows/dotnet.yml)
+
 ## Description
 This NuGet package enables secure and efficient Offline Aadhaar KYC Verification for Indian citizens. It allows developers to extract and validate Aadhaar KYC data from the ZIP file provided by UIDAI's offline Aadhaar e-KYC service. The package handles ZIP decryption using the share code, extracts XML data, verifies the digital signature, and parses relevant user information like name, address, date of birth, and more.
 
