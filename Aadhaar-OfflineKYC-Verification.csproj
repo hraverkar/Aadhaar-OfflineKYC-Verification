@@ -12,7 +12,6 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
   <VersionPrefix>1.0.7</VersionPrefix>
-  <Version></Version>
   </PropertyGroup>
 
   <ItemGroup>
