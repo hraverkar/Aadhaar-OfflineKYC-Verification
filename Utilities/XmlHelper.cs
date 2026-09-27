@@ -103,7 +103,7 @@ namespace Aadhaar_OfflineKYC_Verification.Utilities
         public static X509Certificate2 GetCertificate(XmlNode certNode)
         {
             byte[] certBytes = Convert.FromBase64String(certNode.InnerText.Trim());
-            return new X509Certificate2(certBytes);
+            return X509CertificateLoader.LoadCertificate(certBytes);
         }
 
         private static bool VerifyXmlSignature(XmlDocument xmlDoc, XmlNode signatureNode, X509Certificate2 cert)
@@ -124,9 +124,11 @@ namespace Aadhaar_OfflineKYC_Verification.Utilities
                 if (certNode == null || string.IsNullOrWhiteSpace(certNode.InnerText))
                     throw new InvalidOperationException("Certificate node is missing or empty in XML.");
 
-                var cert = new X509Certificate2(Convert.FromBase64String(certNode.InnerText.Trim()));
+                var cert =  X509CertificateLoader.LoadCertificate(Convert.FromBase64String(certNode.InnerText.Trim()));
+                //var cert = new X509Certificate2(Convert.FromBase64String(certNode.InnerText.Trim()));
 
                 return new KYCData
+                
                 {
                     Issuer = cert.Issuer,
                     GetPublicKey = cert.GetPublicKeyString(),
